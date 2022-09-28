@@ -1,0 +1,13 @@
+---
+// interface PostFrontMatter {
+//   title: string,
+//   publishDate: Date,
+// }
+import Layout from '../layouts/Layout.astro';
+import { Content as Post, frontmatter } from '../blogposts/post-1.md';
+---
+<Layout title="{frontmatter.title}">
+
+  <h1>{ frontmatter.title }</h1>
+  <Post />
+</Layout>
