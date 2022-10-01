@@ -16,7 +16,7 @@
       </svg>
     </button>
     <ul :class="{'hidden': !mobileMenuIsActive}" class="leading-loose text-xl transition-all duration-300 lg:block hover:text-emerald-900/70 text-emerald-900">
-          <li v-for="item in menuItems" class="group hover:text-black underline decoration-4 decoration-transparent hover:decoration-cyan-500 transition-all duration-200">
+          <li v-for="item in menuItems" class="group whitespace-nowrap hover:text-black underline decoration-4 decoration-transparent hover:decoration-cyan-500 transition-all duration-200">
             <a
               :href="item.url"
             >

@@ -32,7 +32,8 @@ export async function getAllPageSlugs() {
         nodes {
           slug
           id
-          title(format: RENDERED)
+          title
+          uri
         }
       }
     }
