@@ -27,14 +27,16 @@ jobs:
       with:
         ref: publish
 
+    - name: 🧱  setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
     - name: Use Node.js 16
       uses: actions/setup-node@v3
       with:
         node-version: 16
         cache: 'pnpm'
-        
-    - name: npm install
-      uses: jaid/action-npm-install@v1.2.1
       
     - name: 🔨 Build Project
       run: npm run build
