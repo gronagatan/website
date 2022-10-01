@@ -25,9 +25,9 @@ import '@fontsource/jost'
 
 import { getAllPageSlugs } from '@ts/queries';
 const menuResponse = await getAllPageSlugs();
-const menuItems = menuResponse.pages.nodes.map((page: { slug: string; title: string; }) => {
+const menuItems = menuResponse.pages.nodes.map((page: { slug: string; title: string; uri: string; }) => {
 	// console.log(page);
-	return { url: page.slug, name: page.title } ;
+	return { url: page.uri, name: page.title } ;
 });
 ---
 
@@ -46,7 +46,7 @@ const menuItems = menuResponse.pages.nodes.map((page: { slug: string; title: str
 			<h2 class="m-6 font-patua text-white  text-4xl">Brf Gröna Gatan</h2>
 			<Menu menuItems={menuItems} client:load/>
 		</div>
-		<div class="p-6 mx-auto bg-yellow-300" >
+		<div class="p-6 mx-auto" >
 			<slot/>
 		</div>
 	</body>

@@ -18,7 +18,7 @@ const response = await getPageFromSlug(slug as string);
 const pageData = response.page;
 ---
 <Layout title={`Grönagatan | ${pageData.title}`}>
-  <h2>{pageData.title}</h2>
-  <article set:html={pageData.content} class="prose lg:prose-xl">
+  <h2 class="text-xl">{pageData.title}</h2>
+  <article set:html={pageData.content} class="prose lg:prose-xl prose-headings:font-sans font-serif">
   </article>
 </Layout>
