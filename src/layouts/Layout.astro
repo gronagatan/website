@@ -25,9 +25,9 @@ import '@fontsource/jost'
 
 import { getAllPageSlugs } from '@ts/queries';
 const menuResponse = await getAllPageSlugs();
-const menuItems = menuResponse.pages.nodes.map((page: { slug: string; title: string; }) => {
+const menuItems = menuResponse.pages.nodes.map((page: { slug: string; title: string; uri: string; }) => {
 	// console.log(page);
-	return { url: page.slug, name: page.title } ;
+	return { url: page.uri, name: page.title } ;
 });
 ---
 
