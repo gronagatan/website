@@ -1,8 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
----
+import { fetchAPI } from '@ts/fetchApi';
+import Debug from 'astro/components/Debug.astro';
+import { getAllPageSlugs, getMenuItems } from '@ts/queries';
 
+	const menu = await getAllPageSlugs();
+	// console.log(menu);
+---
+<Debug {menu} />
 <Layout title="Welcome to Astro.">
 	<main>
 		<h1 class="text-5xl font-patua whitespace-nowrap">Välkommen till <span class="bg-gradient-to-br from-emerald-500 to-emerald-900 bg-clip-text text-transparent">Brf Gröna Gatan</span></h1>

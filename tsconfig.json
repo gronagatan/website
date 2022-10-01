@@ -21,6 +21,7 @@
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
       "@layouts/*": ["src/layouts/*"],
+      "@ts/*": ["src/ts/*"]
     }
   }
 }

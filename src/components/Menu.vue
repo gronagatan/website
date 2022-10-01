@@ -37,6 +37,14 @@ import { reactive, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 const mobileMenuIsActive = ref(false);
 const mainMenu = ref<HTMLElement>(null);
+
+defineProps<{
+  menuItems: {
+    name: string
+    url: string
+  }
+}>()
+
 function toggleMenu () {
   mobileMenuIsActive.value = !mobileMenuIsActive.value;
 }
@@ -49,28 +57,28 @@ const menuUlClasses = ref([
   'bg-gray-300'
 ])
 
-const menuItems = [
-  {
-    name: "hem",
-    url: "",
-  },
-  {
-    name: "fastigheten",
-    url: "",
-  },
-  {
-    name: "service och felanmälan",
-    url: "",
-  },
-  {
-    name: "fakta",
-    url: "",
-  },
-  {
-    name: "dokument",
-    url: "",
-  },
-];
+// const menuItems = [
+//   {
+//     name: "hem",
+//     url: "",
+//   },
+//   {
+//     name: "fastigheten",
+//     url: "",
+//   },
+//   {
+//     name: "service och felanmälan",
+//     url: "",
+//   },
+//   {
+//     name: "fakta",
+//     url: "",
+//   },
+//   {
+//     name: "dokument",
+//     url: "",
+//   },
+// ];
 </script>
 
 <style scoped>

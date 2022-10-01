@@ -14,20 +14,21 @@ import '@fontsource/roboto-slab';
 import '@fontsource/zilla-slab';
 import '@fontsource/jost'
 
-// const vitePaths = import.meta.globEager('../pages/**/*.*');
-const astroPaths = await Astro.glob('../pages/**/*.*');
-// const info = await Astro.glob('../blogposts/*.md');
-const hierarchyPaths = {};
-for (let i = 0; i < astroPaths.length; i++) {
-	const path = astroPaths[i];
+// const astroPaths = await Astro.glob('../pages/**/*.*');
+// const hierarchyPaths = {};
+// for (let i = 0; i < astroPaths.length; i++) {
+// 	const path = astroPaths[i];
 	
-	const url = path.url;
-	const splittedPath = url.slice(1).split('/');
-	// console.log(splittedPath);
-	// splittedPath.forEach(folder => {
-	// 	hierarchyPaths[folder] = 'cool'
-	// });
-}
+// 	const url = path.url;
+// 	const splittedPath = url.slice(1).split('/');
+// }
+
+import { getAllPageSlugs } from '@ts/queries';
+const menuResponse = await getAllPageSlugs();
+const menuItems = menuResponse.pages.nodes.map((page: { slug: string; title: string; }) => {
+	// console.log(page);
+	return { url: page.slug, name: page.title } ;
+});
 ---
 
 <!DOCTYPE html>
@@ -43,7 +44,7 @@ for (let i = 0; i < astroPaths.length; i++) {
 	<body class="lg:flex flex-nowrap items-start">
 		<div class="lg:block flex justify-between sticky p-6 top-0 bg-gradient-to-tr lg:rounded-br-lg from-green-500/40 to-emerald-600/70 backdrop-blur-2xl" >
 			<h2 class="m-6 font-patua text-white  text-4xl">Brf Gröna Gatan</h2>
-			<Menu client:load/>
+			<Menu menuItems={menuItems} client:load/>
 		</div>
 		<div class="p-6 mx-auto bg-yellow-300" >
 			<slot/>

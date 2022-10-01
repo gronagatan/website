@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getAllPageSlugs, getPageFromSlug } from "@ts/queries";
+import Debug from "astro/components/Debug.astro";
+
+export async function getStaticPaths() {
+  // const menuItems = await getMenuItems();
+  const menuItems = await getAllPageSlugs();
+  return menuItems.pages.nodes.map((page: { slug: any; }) => {
+    // console.log(page);
+    return { params: {slug: page.slug} };
+  });
+}
+
+const {slug } = Astro.params;
+
+const response = await getPageFromSlug(slug as string);
+const pageData = response.page;
+---
+<Layout title={`Grönagatan | ${pageData.title}`}>
+  <h2>{pageData.title}</h2>
+  <article set:html={pageData.content} class="prose lg:prose-xl">
+  </article>
+</Layout>
