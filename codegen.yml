@@ -1,0 +1,6 @@
+overwrite: true
+schema: "https://gronagatan.online/graphql"
+generates:
+  src/generated/graphql.ts:
+    plugins:
+      - "typescript"

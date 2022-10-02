@@ -7,7 +7,7 @@ const { title } = Astro.props as Props;
 
 import '../styles/main.css';
 
-import Menu from '@components/Menu.vue'
+import MobileMenu from '@components/MobileMenu.vue'
 import { Debug } from 'astro/components';
 import '@fontsource/patua-one';
 import '@fontsource/roboto-slab';
@@ -24,16 +24,19 @@ import '@fontsource/jost'
 // }
 
 import { getAllPageSlugs, getMenuItems } from '@ts/queries';
+import Footer from '@src/components/Footer.astro';
 // const menuResponse = await getAllPageSlugs();
 const menuResponse = await getMenuItems();
-const menuItems = menuResponse.map((menuItem: { label: string; connectedNode: { node: { slug: string; uri: string; id: string;} } }) => {
+const menuItems = menuResponse?.map((menuItem) => {
 	// console.log(page);
-	return { url: menuItem.connectedNode.node.uri, name: menuItem.label } ;
+	return { url: menuItem?.connectedNode?.node?.uri, name: menuItem?.label } ;
 });
+
+const currentUrl = Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="w-screen">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -42,14 +45,15 @@ const menuItems = menuResponse.map((menuItem: { label: string; connectedNode: { 
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="lg:flex flex-nowrap items-start">
-		<div class="lg:block flex justify-between sticky p-6 top-0 bg-gradient-to-tr lg:rounded-br-lg from-green-500/40 to-emerald-600/70 backdrop-blur-2xl" >
-			<h2 class="m-6 font-patua text-white  text-4xl">Brf Gröna Gatan</h2>
-			<Menu menuItems={menuItems} client:load/>
-		</div>
-		<div class="p-6 mx-auto" >
+	<body class="w-full">
+		<!-- <div class="lg:block flex justify-between items-center sticky p-2 top-0 bg-gradient-to-tr lg:rounded-br-lg from-green-500/40 to-emerald-600/70 backdrop-blur-2xl" >
+			<h2 class="m-2 ml-4 lg:m-6 lg:mb-2 font-patua text-white  text-2xl">Brf Gröna Gatan</h2> -->
+			<MobileMenu class="block lg:hidden" menuItems={menuItems} currentUrl={currentUrl} client:load/>
+		<!-- </div> -->
+		<div class="p-6 mt-20 lg:mt-0 mx-auto" >
 			<slot/>
 		</div>
+		<Footer />
 	</body>
 </html>
 <style>

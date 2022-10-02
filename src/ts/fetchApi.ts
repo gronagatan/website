@@ -3,7 +3,7 @@ const API_URL = 'https://gronagatan.online/graphql';
 type QueryOptions = {
   variables?: Record<string, unknown>
 }
-export async function fetchAPI(query: string, {variables}: QueryOptions = {}) {
+export async function fetchAPI<T>(query: string, {variables}: QueryOptions = {}): Promise<T> {
   const headers = { 'Content-Type': 'application/json' };
   const res = await fetch(API_URL, {
     method: 'POST',

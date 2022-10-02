@@ -1,20 +1,35 @@
 import { fetchAPI } from "./fetchApi"
 
+import type { RootQueryToPageConnection, RootQueryToMenuConnection, Page } from '@src/generated/graphql';
+
 export async function getMenuItems(){
   const query = `
     {
       menus(where: {location: TOP}) {
         nodes {
-          menuItems {
+          menuItems(where: {parentDatabaseId: 0}) {
             nodes {
               label
               connectedNode {
                 node {
-                  uri
                   ... on Page {
                     id
                     slug
                     uri
+                  }
+                }
+              }
+              childItems {
+                nodes {
+                  label
+                  connectedNode {
+                    node {
+                      ... on Page {
+                        id
+                        slug
+                        uri
+                      }
+                    }
                   }
                 }
               }
@@ -24,23 +39,70 @@ export async function getMenuItems(){
       }
     }
   `
-  const response = await fetchAPI(query);
-  return response.menus.nodes[0].menuItems.nodes;
+  const response = await fetchAPI<{menus: RootQueryToMenuConnection}>(query);
+  return response.menus.nodes?.[0]?.menuItems?.nodes
+  // if(response.menus.nodes && response.menus.nodes.length){
+  //   return response.menus.nodes[0]?.menuItems?.nodes;
+  // }
 }
 export async function getAllPageSlugs() {
   const query = `
     {
-      pages {
+      pages(where: {parentIn: ""}) {
         nodes {
           slug
           id
           title
           uri
+          children {
+            nodes {
+              uri
+              ... on Page {
+                id
+                title
+                uri
+                slug
+              }
+            }
+          }
         }
       }
     }
   `
-  return fetchAPI(query);
+  const response = await fetchAPI<{pages: RootQueryToPageConnection}>(query);
+  const nodes = response.pages.nodes;
+  if(nodes == undefined || nodes.length === 0){
+    throw Error('empty response from graphql query');
+  }
+  return nodes as Page[];
+}
+
+export async function getPageFromId(id:string) {
+  const query = `
+    {
+      page(id: "${id}") {
+        id
+        title
+        slug
+        uri
+        content
+        children {
+          nodes {
+            ... on Page {
+              id
+              title
+              slug
+              uri
+              content
+            }
+          }
+        }
+      }
+    }
+  `
+  
+  const response = await fetchAPI<{page: Page}>(query);
+  return response.page;
 }
 
 export async function getPageFromSlug(slug:string){
@@ -54,5 +116,6 @@ export async function getPageFromSlug(slug:string){
       }
     }
   `
-  return fetchAPI(query);
+  const response = await fetchAPI<{page:Page}>(query);
+  return response.page;
 }
