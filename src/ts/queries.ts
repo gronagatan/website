@@ -8,12 +8,13 @@ export async function getMenuItems(){
           menuItems {
             nodes {
               label
-              path
               connectedNode {
                 node {
+                  uri
                   ... on Page {
-                    slug
                     id
+                    slug
+                    uri
                   }
                 }
               }
@@ -23,7 +24,8 @@ export async function getMenuItems(){
       }
     }
   `
-  return fetchAPI(query);
+  const response = await fetchAPI(query);
+  return response.menus.nodes[0].menuItems.nodes;
 }
 export async function getAllPageSlugs() {
   const query = `

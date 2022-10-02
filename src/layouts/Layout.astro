@@ -23,11 +23,12 @@ import '@fontsource/jost'
 // 	const splittedPath = url.slice(1).split('/');
 // }
 
-import { getAllPageSlugs } from '@ts/queries';
-const menuResponse = await getAllPageSlugs();
-const menuItems = menuResponse.pages.nodes.map((page: { slug: string; title: string; uri: string; }) => {
+import { getAllPageSlugs, getMenuItems } from '@ts/queries';
+// const menuResponse = await getAllPageSlugs();
+const menuResponse = await getMenuItems();
+const menuItems = menuResponse.map((menuItem: { label: string; connectedNode: { node: { slug: string; uri: string; id: string;} } }) => {
 	// console.log(page);
-	return { url: page.uri, name: page.title } ;
+	return { url: menuItem.connectedNode.node.uri, name: menuItem.label } ;
 });
 ---
 
