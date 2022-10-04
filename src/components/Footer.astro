@@ -16,7 +16,7 @@ const menuItems = await getMenuItems();
             menuItem.childItems.nodes.map((childMenuItem) => {
               // const label: string = childMenuItem?.label
               const childPage = childMenuItem?.connectedNode?.node as Page;
-              return <a class="block" href={`${childPage.uri}#${childPage.slug}`}>{childMenuItem?.label}</a>;
+              return <a class="block" href={`${menuItem?.connectedNode?.node?.uri}#${childPage.slug}`}>{childMenuItem?.label}</a>;
             })}
         </div>
       </div>
