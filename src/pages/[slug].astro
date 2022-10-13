@@ -1,27 +1,27 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getAllPageSlugs, getPageFromId, getPageFromSlug } from "@ts/queries";
-import Debug from 'astro/components/Debug.astro';
-import type { Page } from '@src/generated/graphql';
+import Layout from '../layouts/Layout.astro'
+import { getAllPageSlugs, getPageFromId } from '@ts/queries'
+// import Debug from 'astro/components/Debug.astro'
+import type { Page } from '@src/generated/graphql'
 
-export async function getStaticPaths() {
+export async function getStaticPaths () {
   // const menuItems = await getMenuItems();
-  const pageSlugs = await getAllPageSlugs();
+  const pageSlugs = await getAllPageSlugs()
   return pageSlugs.map((page) => {
-    return { params: {slug: page.slug}, props: {id: page.id} };
-  });
+    return { params: { slug: page.slug }, props: { id: page.id } }
+  })
 }
 
 // const {slug } = Astro.params;
-const { id } = Astro.props as { id: string; };
+const { id } = Astro.props as { id: string; }
 
-const page = await getPageFromId(id);
-const childPages = page.children?.nodes as Page[] | undefined;
+const page = await getPageFromId(id)
+const childPages = page.children?.nodes as Page[] | undefined
 
-const testPages: {title: string; content: string}[] = [
-  {title: 'askjhasd', content: '<p>TESTSTTSTST</p>'},
-  {title: 'hhhh', content: '<h4>kljahsdflk</h4>'}
-]
+// const testPages: {title: string; content: string}[] = [
+//   { title: 'askjhasd', content: '<p>TESTSTTSTST</p>' },
+//   { title: 'hhhh', content: '<h4>kljahsdflk</h4>' }
+// ]
 ---
 <Layout title={`Grönagatan | ${page.title}`}>
   <div class="prose lg:prose-xl prose-headings:font-sans font-serif prose-figure:-mx-4 prose-figure:rounded-md prose-img:rounded-md">
@@ -35,6 +35,6 @@ const testPages: {title: string; content: string}[] = [
         <h1 id={childPage.slug} class="underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{childPage.title}<a class="text-green-300/50 no-underline" href={`#${childPage.slug}`}> #</a></h1>
         <article set:html={childPage.content} class=""></article>
         </section>
-        ))}
+    ))}
   </div>
 </Layout>

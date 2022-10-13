@@ -1,6 +1,6 @@
 ---
-import type { Page } from "@src/generated/graphql";
-import { getAllPageSlugs, getMenuItems } from "@ts/queries";
+import type { Page } from '@src/generated/graphql'
+import { getMenuItems } from '@ts/queries'
 
 // const allPageSlugs = await getAllPageSlugs();
 const menuItems = await getMenuItems();
@@ -15,8 +15,8 @@ const menuItems = await getMenuItems();
           {menuItem?.childItems?.nodes &&
             menuItem.childItems.nodes.map((childMenuItem) => {
               // const label: string = childMenuItem?.label
-              const childPage = childMenuItem?.connectedNode?.node as Page;
-              return <a class="block" href={`${menuItem?.connectedNode?.node?.uri}#${childPage.slug}`}>{childMenuItem?.label}</a>;
+              const childPage = childMenuItem?.connectedNode?.node as Page
+              return <a class="block" href={`${menuItem?.connectedNode?.node?.uri}#${childPage.slug}`}>{childMenuItem?.label}</a>
             })}
         </div>
       </div>

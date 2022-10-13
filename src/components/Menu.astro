@@ -1,46 +1,52 @@
 ---
 const menuItems = [
   {
-    name: "hem",
-    url: "",
+    name: 'hem',
+    url: ''
   },
   {
-    name: "fastigheten",
-    url: "",
+    name: 'fastigheten',
+    url: ''
   },
   {
-    name: "service och felanmälan",
-    url: "",
+    name: 'service och felanmälan',
+    url: ''
   },
   {
-    name: "fakta",
-    url: "",
+    name: 'fakta',
+
+    url: ''
   },
   {
-    name: "dokument",
-    url: "",
-  },
+    name: 'dokument',
+    url: ''
+  }
 ];
 ---
 
 <nav class="main-menu w-full p-6 rounded-md">
-  <input class="absolute w-8 h-8 top-0 left-0 p-0 z-50 block cursor-pointer opacity-40" name="menutoggle" type="checkbox" />
   <label
+    for="menu-toggle-checkbox"
     class="block absolute top-0 left-0 rounded-md shadow-md bg-zinc-300"
-    for="menutoggle"
   >
+    <input
+      id="menu-toggle-checkbox"
+      class="absolute w-8 h-8 top-0 left-0 p-0 z-50 block cursor-pointer opacity-40"
+      name="menutoggle"
+      type="checkbox"
+    />
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="w-8 h-8"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="w-8 h-8"
     >
       <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
     </svg>
   </label>
   <ul>
@@ -68,7 +74,7 @@ const menuItems = [
   }
 
   .main-menu input:checked ~ ul {
-    scale: 1; 
+    scale: 1;
     /* height: unset; */
     /* display: unset; */
     /* background-color: aliceblue; */

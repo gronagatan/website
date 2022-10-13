@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"eslint.validate": [
+			"javascript",
+			"javascriptreact",
+			"astro",
+			"typescript",
+			"typescriptreact",
+			"html",
+		],
+		// "editor.codeActionsOnSave": {
+		// 	"source.fixAll": false,
+		// 	"source.fixAll.eslint": true,
+		// }
+	}
+}
