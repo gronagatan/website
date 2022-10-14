@@ -23,34 +23,34 @@ const menuItems = [
   }
 ];
 ---
-
-<nav class="main-menu w-full p-6 rounded-md">
-  <label
-    for="menu-toggle-checkbox"
-    class="block absolute top-0 left-0 rounded-md shadow-md bg-zinc-300"
-  >
-    <input
-      id="menu-toggle-checkbox"
-      class="absolute w-8 h-8 top-0 left-0 p-0 z-50 block cursor-pointer opacity-40"
-      name="menutoggle"
-      type="checkbox"
-    />
-    <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke-width="1.5"
-    stroke="currentColor"
-    class="w-8 h-8"
+  <nav class="main-menu w-full p-6 rounded-md">
+    <label
+      for="menu-toggle-checkbox"
+      class="block absolute top-0 left-0 rounded-md shadow-md bg-zinc-300"
     >
-      <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
-    </svg>
-  </label>
-  <ul>
-    {
+      <input
+
+        id="menu-toggle-checkbox"
+        class="absolute w-8 h-8 top-0 left-0 p-0 z-50 block cursor-pointer opacity-40"
+        name="menutoggle"
+        type="checkbox"
+      />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-8 h-8"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+      </svg>
+    </label>
+    <ul>
+      {
       menuItems.map((item) => (
         <li>
           <a
@@ -62,10 +62,10 @@ const menuItems = [
         </li>
       ))
     }
-  </ul>
-</nav>
+    </ul>
+  </nav>
 
-<style>
+    <style>
   .main-menu ul {
     /* display: none; */
     scale: 0;
@@ -79,4 +79,4 @@ const menuItems = [
     /* display: unset; */
     /* background-color: aliceblue; */
   }
-</style>
+    </style>

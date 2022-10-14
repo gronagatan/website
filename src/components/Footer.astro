@@ -6,8 +6,8 @@ import { getMenuItems } from '@ts/queries'
 const menuItems = await getMenuItems();
 ---
 
-<div class="p-4 border-t-emerald-100 bg-gray-50 border-t text-sm flex flex-wrap gap-6 leading-loose underline text-emerald-800">
-  {
+  <div class="p-4 border-t-emerald-100 bg-gray-50 border-t text-sm flex flex-wrap gap-6 leading-loose underline text-emerald-800">
+    {
     menuItems?.map((menuItem) => (
       <div class="">
         <div>
@@ -22,4 +22,4 @@ const menuItems = await getMenuItems();
       </div>
     ))
   }
-</div>
+  </div>

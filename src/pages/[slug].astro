@@ -23,18 +23,18 @@ const childPages = page.children?.nodes as Page[] | undefined
 //   { title: 'hhhh', content: '<h4>kljahsdflk</h4>' }
 // ]
 ---
-<Layout title={`Grönagatan | ${page.title}`}>
-  <div class="prose lg:prose-xl prose-headings:font-sans font-serif prose-figure:-mx-4 prose-figure:rounded-md prose-img:rounded-md">
-    <section>
-      <h1 id={page.slug} class="underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{page.title}<a class="text-green-300/50 no-underline" href={`#${page.slug}`}> #</a></h1>
-      <article set:html={page.content} class="">
-      </article>
-    </section>
-    {childPages && childPages.map((childPage) => (
+  <Layout title={`Grönagatan | ${page.title}`}>
+    <div class="prose lg:prose-xl prose-headings:font-sans font-serif prose-figure:-mx-4 prose-figure:rounded-md prose-img:rounded-md">
       <section>
-        <h1 id={childPage.slug} class="underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{childPage.title}<a class="text-green-300/50 no-underline" href={`#${childPage.slug}`}> #</a></h1>
-        <article set:html={childPage.content} class=""></article>
+        <h1 id={page.slug} class="underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{page.title}<a class="text-green-300/50 no-underline" href={`#${page.slug}`}> #</a></h1>
+        <article set:html={page.content} class="">
+        </article>
+      </section>
+      {childPages && childPages.map((childPage) => (
+        <section>
+          <h1 id={childPage.slug} class="underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{childPage.title}<a class="text-green-300/50 no-underline" href={`#${childPage.slug}`}> #</a></h1>
+          <article set:html={childPage.content} class=""></article>
         </section>
-    ))}
-  </div>
-</Layout>
+      ))}
+    </div>
+  </Layout>

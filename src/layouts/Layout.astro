@@ -36,27 +36,27 @@ const currentUrl = Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="w-screen">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <html lang="en" class="w-screen">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width" />
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <!-- <link rel="stylesheet" href="styles/main.css" -->
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-  </head>
-  <body class="w-full">
+      <meta name="generator" content={Astro.generator} />
+      <title>{title}</title>
+    </head>
+    <body class="w-full">
     <!-- <div class="lg:block flex justify-between items-center sticky p-2 top-0 bg-gradient-to-tr lg:rounded-br-lg from-green-500/40 to-emerald-600/70 backdrop-blur-2xl" >
       <h2 class="m-2 ml-4 lg:m-6 lg:mb-2 font-patua text-white  text-2xl">Brf Gröna Gatan</h2> -->
       <MobileMenu class="block" menuItems={menuResponse} currentUrl={currentUrl} client:load/>
     <!-- </div> -->
-    <div class="p-6 mt-20 lg:mt-0 mx-auto" >
-      <slot/>
-    </div>
-    <Footer />
-  </body>
-</html>
-<style>
+      <div class="p-6 mt-20 lg:mt-0 mx-auto" >
+        <slot/>
+      </div>
+      <Footer />
+    </body>
+  </html>
+  <style>
   /* :root {
     --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
     --font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
@@ -85,4 +85,4 @@ const currentUrl = Astro.url.pathname;
     font-size: var(--font-size-lg);
   } */
 
-</style>
+  </style>
