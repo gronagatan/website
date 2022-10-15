@@ -5,17 +5,16 @@
 		}
 	],
 	"settings": {
-		"eslint.validate": [
+		"eslint.probe": [
 			"javascript",
 			"javascriptreact",
 			"astro",
 			"typescript",
 			"typescriptreact",
+			"vue",
 			"html",
 		],
-		// "editor.codeActionsOnSave": {
-		// 	"source.fixAll": false,
-		// 	"source.fixAll.eslint": true,
-		// }
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+		"editor.formatOnSave": true,
 	}
 }

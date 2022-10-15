@@ -1,6 +1,6 @@
 <template>
   <div
-       class="fixed left-0 right-0 top-0 p-6 bg-gradient-to-r from-green-700/30 to-emerald-600/95 backdrop-blur-2xl shadow-xl">
+       class="left-0 right-0 p-6 bg-gradient-to-r from-green-700/30 to-emerald-600/95 backdrop-blur-2xl shadow-xl">
     <div ref="mobileNavbar" class="">
       <div class="flex justify-between items-center">
         <h2 class="font-patua text-white text-2xl">Brf Gröna Gatan</h2>

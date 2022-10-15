@@ -19,6 +19,7 @@ import '@fontsource/jost'
 
 import { getMenuItems } from '@ts/queries'
 import Footer from '@src/components/Footer.astro'
+import NavBar from '@src/components/NavBar.astro'
 
 export interface Props {
   title: string;
@@ -36,22 +37,25 @@ const currentUrl = Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
-  <html lang="en" class="w-screen">
+  <html lang="en">
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <!-- <link rel="stylesheet" href="styles/main.css" -->
       <meta name="generator" content={Astro.generator} />
       <title>{title}</title>
     </head>
-    <body class="w-full">
-    <!-- <div class="lg:block flex justify-between items-center sticky p-2 top-0 bg-gradient-to-tr lg:rounded-br-lg from-green-500/40 to-emerald-600/70 backdrop-blur-2xl" >
-      <h2 class="m-2 ml-4 lg:m-6 lg:mb-2 font-patua text-white  text-2xl">Brf Gröna Gatan</h2> -->
-      <MobileMenu class="block" menuItems={menuResponse} currentUrl={currentUrl} client:load/>
-    <!-- </div> -->
-      <div class="p-6 mt-20 lg:mt-0 mx-auto" >
-        <slot/>
+    <body>
+      <div class="sticky top-0">
+        <div class="md:block hidden">
+          <NavBar >Fuck yeah</NavBar>
+        </div>
+        <div class="block md:hidden">
+          <MobileMenu class="block md:hidden" menuItems={menuResponse} currentUrl={currentUrl} client:load/>
+        </div>
+      </div>
+      <div class="p-2 sm:p-6" >
+        <!-- <slot/> -->
       </div>
       <Footer />
     </body>

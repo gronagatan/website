@@ -1,0 +1,59 @@
+---
+const menuItems = [
+  {
+    name: 'hem',
+    url: ''
+  },
+  {
+    name: 'fastigheten',
+    url: ''
+  },
+  {
+    name: 'service och felanmälan',
+    url: ''
+  },
+  {
+    name: 'fakta',
+
+    url: ''
+  },
+  {
+    name: 'dokument',
+    url: ''
+  }
+];
+---
+<div class="w-full bg-emerald-700">
+  <nav class="main-menu w-full p-6 rounded-md">
+    <ul>
+      {
+        menuItems.map((item) => (
+          <li>
+            <a
+              class="block underline text-emerald-900 hover:bg-teal-200"
+              href={item.url}
+            >
+              {item.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
+
+    <style>
+  .main-menu ul {
+    /* display: none; */
+    scale: 0;
+    /* height: 0; */
+    transition: all 0.5s ease;
+  }
+
+  .main-menu input:checked ~ ul {
+    scale: 1;
+    /* height: unset; */
+    /* display: unset; */
+    /* background-color: aliceblue; */
+  }
+    </style>

@@ -7,9 +7,12 @@
     "plugin:astro/jsx-a11y-recommended",
     "standard"
   ],
-  "plugins": [
-    "react"
-  ],
+  "rules": {
+    "indent": [1, 2]
+  },
+  // "plugins": [
+  //   "react"
+  // ],
   "overrides": [
     {
       // Define the configuration for `.astro` file.
@@ -25,8 +28,8 @@
       "rules": {
         // override/add rules settings here, such as:
         // "astro/no-set-html-directive": "error"
-        "react/jsx-indent": [1, 2, {"checkAttributes": true}],
-        "react/jsx-indent-props": [1, 2]
+        // "react/jsx-indent": [1, 2, {"checkAttributes": true}],
+        // "react/jsx-indent-props": [1, 2]
       }
     }
     // {
