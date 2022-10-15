@@ -1,59 +1,56 @@
 ---
-const menuItems = [
-  {
-    name: 'hem',
-    url: ''
-  },
-  {
-    name: 'fastigheten',
-    url: ''
-  },
-  {
-    name: 'service och felanmälan',
-    url: ''
-  },
-  {
-    name: 'fakta',
+import type { Page } from '@src/generated/graphql'
+import { getMenuItems } from '@ts/queries'
+const menuItems = await getMenuItems();
+// const menuItems = [
+//   {
+//     name: 'hem',
+//     url: ''
+//   },
+//   {
+//     name: 'fastigheten',
+//     url: ''
+//   },
+//   {
+//     name: 'service och felanmälan',
+//     url: ''
+//   },
+//   {
+//     name: 'fakta',
 
-    url: ''
-  },
-  {
-    name: 'dokument',
-    url: ''
-  }
-];
+//     url: ''
+//   },
+//   {
+//     name: 'dokument',
+//     url: ''
+//   }
+// ];
+
 ---
-<div class="w-full bg-emerald-700">
-  <nav class="main-menu w-full p-6 rounded-md">
-    <ul>
-      {
-        menuItems.map((item) => (
-          <li>
-            <a
-              class="block underline text-emerald-900 hover:bg-teal-200"
-              href={item.url}
-            >
-              {item.name}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
-</div>
-
-    <style>
-  .main-menu ul {
-    /* display: none; */
-    scale: 0;
-    /* height: 0; */
-    transition: all 0.5s ease;
-  }
-
-  .main-menu input:checked ~ ul {
-    scale: 1;
-    /* height: unset; */
-    /* display: unset; */
-    /* background-color: aliceblue; */
-  }
-    </style>
+<nav class="w-full p-6 text-fogra bg-baby-powder/50 backdrop-blur-2xl flex justify-between items-center">
+  <h1 class="font-patua text-4xl text-fogra">BRF Gröna Gatan</h1>
+  <div class="flex justify-end gap-12 text-xl">
+    {
+      menuItems?.map((item) => (
+        <div class="group relative text-right">
+          <a
+            class="block hover:underline "
+            href={item?.connectedNode?.node?.uri}
+          >
+            {item?.label}
+          </a>
+          {item?.childItems?.nodes && <div class="origin-top max-h-0 -translate-y-1 opacity-0 group-hover:max-h-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-1000 overflow-hidden">
+            {
+              item.childItems.nodes.map((childMenuItem) => {
+                // const label: string = childMenuItem?.label
+                const childPage = childMenuItem?.connectedNode?.node as Page
+                return <a class="block" href={`${item?.connectedNode?.node?.uri}#${childPage.slug}`}>{childMenuItem?.label}</a>
+              })
+            }
+          </div>
+          }
+        </div>
+      ))
+    }
+  </div>
+</nav>
