@@ -8,7 +8,7 @@
             :href="item?.connectedNode?.node?.uri + '#'">
             {{item?.label}}
           </a>
-          <div class="overflow-hidden transition-all duration-700" :class="{'!max-h-0': !expanded}">
+          <div class="overflow-hidden transition-all duration-700 text-lg leading-relaxed" :class="{'!max-h-0': !expanded}">
             <a class="block hover:text-cyan-700 hover:underline" v-for="child in item?.childItems?.nodes"
             :href="(item?.connectedNode?.node?.uri + '#' + (child?.connectedNode?.node as Page).slug)">{{child?.label}}</a>
           </div>

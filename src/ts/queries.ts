@@ -1,8 +1,8 @@
-import { fetchAPI } from "./fetchApi"
+import { fetchAPI } from './fetchApi'
 
-import type { RootQueryToPageConnection, RootQueryToMenuConnection, Page } from '@src/generated/graphql';
+import type { RootQueryToPageConnection, RootQueryToMenuConnection, Page } from '@src/generated/graphql'
 
-export async function getMenuItems(){
+export async function getMenuItems () {
   const query = `
     {
       menus(where: {location: TOP}) {
@@ -39,13 +39,13 @@ export async function getMenuItems(){
       }
     }
   `
-  const response = await fetchAPI<{menus: RootQueryToMenuConnection}>(query);
+  const response = await fetchAPI<{menus: RootQueryToMenuConnection}>(query)
   return response.menus.nodes?.[0]?.menuItems?.nodes
   // if(response.menus.nodes && response.menus.nodes.length){
   //   return response.menus.nodes[0]?.menuItems?.nodes;
   // }
 }
-export async function getAllPageSlugs() {
+export async function getAllPageSlugs () {
   const query = `
     {
       pages(where: {parentIn: ""}) {
@@ -54,7 +54,7 @@ export async function getAllPageSlugs() {
           id
           title
           uri
-          children {
+          children(where: {orderby: {field: MENU_ORDER, order: ASC}}) {
             nodes {
               uri
               ... on Page {
@@ -69,15 +69,15 @@ export async function getAllPageSlugs() {
       }
     }
   `
-  const response = await fetchAPI<{pages: RootQueryToPageConnection}>(query);
-  const nodes = response.pages.nodes;
-  if(nodes == undefined || nodes.length === 0){
-    throw Error('empty response from graphql query');
+  const response = await fetchAPI<{pages: RootQueryToPageConnection}>(query)
+  const nodes = response.pages.nodes
+  if (nodes === undefined || nodes?.length === 0) {
+    throw Error('empty response from graphql query')
   }
-  return nodes as Page[];
+  return nodes as Page[]
 }
 
-export async function getPageFromId(id:string) {
+export async function getPageFromId (id:string) {
   const query = `
     {
       page(id: "${id}") {
@@ -86,7 +86,7 @@ export async function getPageFromId(id:string) {
         slug
         uri
         content
-        children {
+        children(where:{orderby:{field: MENU_ORDER, order: ASC}}) {
           nodes {
             ... on Page {
               id
@@ -100,12 +100,12 @@ export async function getPageFromId(id:string) {
       }
     }
   `
-  
-  const response = await fetchAPI<{page: Page}>(query);
-  return response.page;
+
+  const response = await fetchAPI<{page: Page}>(query)
+  return response.page
 }
 
-export async function getPageFromSlug(slug:string){
+export async function getPageFromSlug (slug:string) {
   const query = `
     {
       page(idType: URI, id: "${slug}") {
@@ -116,6 +116,6 @@ export async function getPageFromSlug(slug:string){
       }
     }
   `
-  const response = await fetchAPI<{page:Page}>(query);
-  return response.page;
+  const response = await fetchAPI<{page:Page}>(query)
+  return response.page
 }
