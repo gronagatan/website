@@ -1,10 +1,12 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro'
+import { getPageFromSlug } from '@ts/queries'
+
+const pageResponse = await getPageFromSlug('start')
 ---
   <Layout title="Welcome to Astro.">
-    <main>
-      <h1 class="text-5xl font-patua whitespace-nowrap">Välkommen till <span class="bg-gradient-to-br from-emerald-500 to-emerald-900 bg-clip-text text-transparent">Brf Gröna Gatan</span></h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem explicabo similique adipisci quod recusandae alias eos eveniet officia necessitatibus fuga. Fugiat atque minus quisquam dignissimos suscipit ipsam sit asperiores optio.</p>
-      <a href="google.com" target="_blank">google.com</a>
+    <main class="mx-auto prose prose-base md:prose-lg xl:prose-xl prose-headings:font-sans font-serif prose-figure:rounded-md prose-img:rounded-md">
+      <h1 class="!font-patua">Välkommen till <span class="bg-gradient-to-br from-emerald-500 to-emerald-900 bg-clip-text text-transparent">Brf Gröna Gatan</span></h1>
+      <article set:html={pageResponse.content} />
     </main>
   </Layout>

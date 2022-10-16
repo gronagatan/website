@@ -1,14 +1,14 @@
 <template>
   <div @mouseleave="expanded = false" ref="navBar" class="w-full p-6 flex justify-between text-kombugreen bg-baby-powder/40 backdrop-blur-2xl shadow-xl">
-    <h2 class="font-patua  text-4xl">Brf Gröna Gatan</h2>
+    <h2 class="font-patua self-center  text-4xl">Brf Gröna Gatan</h2>
     <nav class="m-2 grid grid-flow-col grid-rows-1 auto-cols-fr gap-12 text-xl">
-        <div @mouseover="expanded = true" ref="menuRefs" v-for="item in menuItems" class="pb-2 border-b-2 border-dotted border-kombugreen flex flex-col" >
+        <div @mouseover="expanded = true" ref="menuRefs" v-for="item in menuItems" class="border-b-2 leading-loose border-dotted border-kombugreen flex flex-col" >
           <a class="whitespace-nowrap hover:text-cyan-700 hover:underline"
-            :class="{'font-extrabold': (item?.connectedNode?.node?.uri == currentUrl)}"
-            :href="item?.connectedNode?.node?.uri + '#'">
+            :class="{'font-extrabold': (item?.path == currentUrl)}"
+            :href="item?.path + '#'">
             {{item?.label}}
           </a>
-          <div class="overflow-hidden transition-all duration-700 text-lg leading-relaxed" :class="{'!max-h-0': !expanded}">
+          <div class="overflow-hidden transition-all duration-700 text-lg" :class="{'!max-h-0': !expanded}">
             <a class="block hover:text-cyan-700 hover:underline" v-for="child in item?.childItems?.nodes"
             :href="(item?.connectedNode?.node?.uri + '#' + (child?.connectedNode?.node as Page).slug)">{{child?.label}}</a>
           </div>

@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import { getAllPageSlugs, getPageFromId } from '@ts/queries'
 // import Debug from 'astro/components/Debug.astro'
 import type { Page } from '@src/generated/graphql'
+import TOC from '@src/components/TOC.astro'
 
 export async function getStaticPaths () {
   // const menuItems = await getMenuItems();
@@ -24,17 +25,24 @@ const childPages = page.children?.nodes as Page[] | undefined
 // ]
 ---
   <Layout title={`Grönagatan | ${page.title}`}>
-    <div class="mx-auto prose prose-base md:prose-lg xl:prose-xl prose-headings:font-sans font-serif prose-figure:rounded-md prose-img:rounded-md">
-      <section>
-        <h2 id={page.slug} class="underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{page.title}<a class="text-green-300/50 no-underline" href={`#${page.slug}`}> #</a></h2>
-        <article set:html={page.content} class="">
-        </article>
-      </section>
-      {childPages && childPages.map((childPage) => (
+    <div class="w-full relative flex items-start">
+      {childPages && childPages.length &&
+      <div class="fixed top-32 m-8">
+        <TOC sections={childPages} title={page.title as string} />
+      </div>
+      }
+      <div class="mx-auto prose prose-base md:prose-lg xl:prose-xl prose-headings:font-sans font-serif prose-figure:rounded-md prose-img:rounded-md">
         <section>
-          <h2 id={childPage.slug} class="underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{childPage.title}<a class="text-green-300/50 no-underline" href={`#${childPage.slug}`}> #</a></h2>
-          <article set:html={childPage.content} class=""></article>
+          <h2 id={page.slug} class="!mt-6 underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{page.title}<a class="text-green-300/50 no-underline" href={`#${page.slug}`}> #</a></h2>
+          <article set:html={page.content} class="">
+          </article>
         </section>
-      ))}
+        {childPages && childPages.map((childPage) => (
+          <section>
+            <h2 id={childPage.slug} class="underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{childPage.title}<a class="text-green-300/50 no-underline" href={`#${childPage.slug}`}> #</a></h2>
+            <article set:html={childPage.content} class=""></article>
+          </section>
+        ))}
+      </div>
     </div>
   </Layout>

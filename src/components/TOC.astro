@@ -1,0 +1,18 @@
+---
+import type { Page } from '@src/generated/graphql'
+export interface Props {
+  sections: Page[],
+  title: string
+}
+const { sections, title } = Astro.props as Props
+---
+
+<nav class="bg-baby-powder p-6 rounded-md flex flex-col gap-4">
+  <h4 class="text-xl">Sidans innehåll</h4>
+  <a class="text-russian-green underline" href="#">{title}</a>
+  {
+    sections.map(page => {
+      return <a class="text-russian-green underline" href={`#${page.slug}`}>{page.title}</a>
+    })
+  }
+</nav>

@@ -10,6 +10,7 @@ export async function getMenuItems () {
           menuItems(where: {parentDatabaseId: 0}) {
             nodes {
               label
+              path
               connectedNode {
                 node {
                   ... on Page {
@@ -109,10 +110,22 @@ export async function getPageFromSlug (slug:string) {
   const query = `
     {
       page(idType: URI, id: "${slug}") {
-        content
+        id
         title
         slug
         uri
+        content
+        children(where:{orderby:{field: MENU_ORDER, order: ASC}}) {
+          nodes {
+            ... on Page {
+              id
+              title
+              slug
+              uri
+              content
+            }
+          }
+        }
       }
     }
   `
