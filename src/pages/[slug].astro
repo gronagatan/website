@@ -25,11 +25,11 @@ const childPages = page.children?.nodes as Page[] | undefined
 // ]
 ---
   <Layout title={`Grönagatan | ${page.title}`}>
-    <div class="w-full relative flex items-start">
-      {childPages && childPages.length &&
-      <div class="fixed top-32 m-8">
-        <TOC sections={childPages} title={page.title as string} />
-      </div>
+    <div class="w-full relative flex items-start gap-6">
+      {childPages && childPages.length > 0 &&
+        <div class="hidden md:block sticky top-40 ml-0 lg:ml-8">
+          <TOC sections={childPages} title={page.title as string} />
+        </div>
       }
       <div class="mx-auto prose prose-base md:prose-lg xl:prose-xl prose-headings:font-sans font-serif prose-figure:rounded-md prose-img:rounded-md">
         <section>
