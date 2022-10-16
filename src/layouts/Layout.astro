@@ -46,11 +46,11 @@ const currentUrl = Astro.url.pathname;
       <meta name="generator" content={Astro.generator} />
       <title>{title}</title>
     </head>
-    <body class="dark:bg-wine-dark dark:text-white">
+    <body class="">
       <div class="sticky top-0">
         <div class="md:block hidden">
           <NavBar menuItems={menuResponse} currentUrl={currentUrl} client:load>Fuck yeah</NavBar>
-          <RefBar />
+          <!-- <RefBar /> -->
         </div>
         <div class="block md:hidden">
           <MobileMenu class="block md:hidden" menuItems={menuResponse} currentUrl={currentUrl} client:load/>
