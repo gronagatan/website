@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const defaultTheme = require('tailwindcss/defaultTheme')
+const plugin = require('tailwindcss/plugin')
 module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
@@ -21,7 +22,7 @@ module.exports = {
           DEFAULT: '#001a23'
         },
         kombugreen: {
-          DEFAULT: '#31493C'
+          DEFAULT: '#0e4025'
         },
         'russian-green': {
           DEFAULT: '#7A9E7E'
@@ -42,6 +43,10 @@ module.exports = {
     }
   },
   plugins: [
-    require('@tailwindcss/typography')
+    require('@tailwindcss/typography'),
+    plugin(function ({ addVariant }) {
+      addVariant('no-hover', '@media (hover: none)')
+      addVariant('supports-hover', '@media (hover: hover)')
+    })
   ]
 }
