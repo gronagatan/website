@@ -1,7 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-
+/* eslint-env node */
 const defaultTheme = require('tailwindcss/defaultTheme')
 const plugin = require('tailwindcss/plugin')
+// import defaultTheme from 'tailwindcss/defaultTheme'
+// import plugin from 'tailwindcss/plugin'
+// import typography from '@tailwindcss/typography'
 module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
@@ -44,6 +47,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/typography'),
+    // typography,
     plugin(function ({ addVariant }) {
       addVariant('no-hover', '@media (hover: none)')
       addVariant('supports-hover', '@media (hover: hover)')

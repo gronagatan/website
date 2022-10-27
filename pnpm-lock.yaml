@@ -12,6 +12,7 @@ specifiers:
   '@graphql-codegen/cli': 2.13.1
   '@graphql-codegen/typescript': 2.7.3
   '@html-eslint/eslint-plugin': ^0.15.0
+  '@originjs/vite-plugin-commonjs': ^1.0.3
   '@tailwindcss/typography': ^0.5.7
   '@typescript-eslint/eslint-plugin': ^5.40.0
   '@typescript-eslint/parser': ^5.40.0
@@ -42,6 +43,7 @@ devDependencies:
   '@graphql-codegen/cli': 2.13.1_juvzjpiryemobpzvea6aiyt7wm
   '@graphql-codegen/typescript': 2.7.3_graphql@16.6.0
   '@html-eslint/eslint-plugin': 0.15.0
+  '@originjs/vite-plugin-commonjs': 1.0.3
   '@tailwindcss/typography': 0.5.7_tailwindcss@3.1.8
   '@typescript-eslint/eslint-plugin': 5.40.0_yuvvtqpq5u35ips2cyo7knqbd4
   '@typescript-eslint/parser': 5.40.0_ajfq4rvgi3mh3ryl6fjvjvl74a
@@ -1504,6 +1506,12 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
+    dev: true
+
+  /@originjs/vite-plugin-commonjs/1.0.3:
+    resolution: {integrity: sha512-KuEXeGPptM2lyxdIEJ4R11+5ztipHoE7hy8ClZt3PYaOVQ/pyngd2alaSrPnwyFeOW1UagRBaQ752aA1dTMdOQ==}
+    dependencies:
+      esbuild: 0.14.54
     dev: true
 
   /@peculiar/asn1-schema/2.3.0:

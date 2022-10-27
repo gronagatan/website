@@ -25,21 +25,21 @@ const childPages = page.children?.nodes as Page[] | undefined
 // ]
 ---
   <Layout title={`Grönagatan | ${page.title}`}>
-    <div class="w-full relative flex items-start gap-6">
+    <div class="relative flex items-start w-full gap-6">
       {childPages && childPages.length > 0 &&
-        <div class="hidden md:block sticky top-28 ml-0 lg:ml-8">
+        <div class="sticky hidden ml-0 md:block top-28 lg:ml-8">
           <TOC sections={childPages} title={page.title as string} />
         </div>
       }
-      <div class="mx-auto prose prose-base md:prose-lg xl:prose-xl prose-headings:font-sans font-serif prose-figure:rounded-md prose-img:rounded-md">
+      <div class="mx-auto font-serif prose prose-base md:prose-lg xl:prose-xl prose-headings:font-sans prose-figure:rounded-md prose-img:rounded-md">
         <section>
-          <h2 id={page.slug} class="!mt-6 underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{page.title}<a class="text-green-300/50 no-underline" href={`#${page.slug}`}> #</a></h2>
+          <h2 id={page.slug} class="!mt-0 underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{page.title}<a class="no-underline text-green-300/50" href={`#${page.slug}`}> #</a></h2>
           <article set:html={page.content} class="">
           </article>
         </section>
         {childPages && childPages.map((childPage) => (
           <section>
-            <h2 id={childPage.slug} class="underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{childPage.title}<a class="text-green-300/50 no-underline" href={`#${childPage.slug}`}> #</a></h2>
+            <h2 id={childPage.slug} class="underline underline-offset-4 decoration-2 decoration-dotted decoration-green-300 ">{childPage.title}<a class="no-underline text-green-300/50" href={`#${childPage.slug}`}> #</a></h2>
             <article set:html={childPage.content} class=""></article>
           </section>
         ))}

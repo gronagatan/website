@@ -5,17 +5,13 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
 @layer utilities {
-  @variants responsive {
-    .text-glow-black {
-      text-shadow: 0px 0px 0.5rem hsla(0 0% 0% / 20%);
-    }
+  .text-glow-black {
+    text-shadow: 0px 0px 0.5rem hsla(0 0% 0% / 20%);
   }
 }
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 10rem;
-  }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 10rem;
+}

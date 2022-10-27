@@ -17,6 +17,7 @@
     "@graphql-codegen/cli": "2.13.1",
     "@graphql-codegen/typescript": "2.7.3",
     "@html-eslint/eslint-plugin": "^0.15.0",
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@tailwindcss/typography": "^0.5.7",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
