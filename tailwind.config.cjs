@@ -51,6 +51,7 @@ module.exports = {
     plugin(function ({ addVariant }) {
       addVariant('no-hover', '@media (hover: none)')
       addVariant('supports-hover', '@media (hover: hover)')
+      addVariant('no-mouse', '@media (pointer: course)')
     })
   ]
 }
