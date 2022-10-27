@@ -25,7 +25,7 @@
     <div class="h-0 md:hidden basis-full"></div>
     <Transition>
         <nav :class="{'!max-h-0': !mobileMenuIsActive, 'mt-4': mobileMenuIsActive}" ref="navElement" class="md:grid md:!max-h-fit grid-flow-row grid-rows-1 gap-4 ml-auto overflow-hidden text-lg md:grid-flow-col auto-cols-fr lg:gap-8 md:text-base lg:text-xl">
-          <div @mouseover="onHover(menuRefs[index])" ref="menuRefs" v-for="(item, index) in menuItems" class="flex flex-col leading-loose tracking-wide transition-all duration-300 border-t-2 supports-hover:hover:border-kombugreen border-russian-green/50 md:tracking-tighter lg:tracking-tight xl:tracking-normal" >
+          <div @mouseover="onHover(menuRefs[index])" ref="menuRefs" v-for="(item, index) in menuItems" :class="{'hover:border-kombugreen': !touchDevice}" class="flex flex-col leading-loose tracking-wide transition-all duration-300 border-t-2 border-russian-green/50 md:tracking-tighter lg:tracking-tight xl:tracking-normal" >
           <div class="flex items-center justify-between">
             <a class="whitespace-nowrap hover:text-white hover:underline"
               :class="{'font-extrabold': (item?.path == currentUrl)}"
@@ -33,12 +33,12 @@
               {{item?.label}}
             </a>
             <button v-if="item?.childItems?.nodes?.length" @click="currentlyExpandedItem === menuRefs[index]? currentlyExpandedItem = null : currentlyExpandedItem = menuRefs[index]">
-              <svg class="w-6 h-6 transition-transform duration-300 supports-hover:hidden no-hover:block" :class="{'rotate-180': currentlyExpandedItem === menuRefs[index]}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+              <svg class="w-6 h-6 transition-transform duration-300" :class="{'hidden': !touchDevice, 'block': touchDevice, 'rotate-180': currentlyExpandedItem === menuRefs[index]}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
             </button>
           </div>
-          <div class="overflow-y-hidden transition-all duration-500 foldout" :class="{'!max-h-0': currentlyExpandedItem === null, 'text-zinc-400': currentlyExpandedItem !== menuRefs[index]}">
+          <div class="overflow-y-hidden transition-all duration-500 foldout" :class="{'md:!max-h-0': currentlyExpandedItem === null, 'text-zinc-400, !max-h-0': currentlyExpandedItem !== menuRefs[index]}">
             <a class="block hover:text-white hover:underline" v-for="child in item?.childItems?.nodes"
             :href="(item?.connectedNode?.node?.uri + '#' + (child?.connectedNode?.node as Page).slug)">{{child?.label}}</a>
           </div>
@@ -64,6 +64,8 @@ const navBar = ref<HTMLElement | null>(null);
 const navElement = ref<HTMLElement | null>(null);
 const menuRefs = ref<HTMLElement[]>([]);
 
+const touchDevice = ref<boolean>(true);
+
 const screens = tailwindOptions.theme?.screens as KeyValuePair<string, string>;
 
 defineProps<{
@@ -73,6 +75,9 @@ defineProps<{
 
 onMounted(() => {
   console.log(screens);
+  if (!("ontouchstart" in document.documentElement)) {
+    touchDevice.value = false;
+  }
   menuRefs.value.forEach(ref => {
     const foldoutDiv: HTMLElement | null = ref.querySelector('.foldout');
     if(!foldoutDiv){
