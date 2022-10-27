@@ -38,7 +38,7 @@
               </svg>
             </button>
           </div>
-          <div class="overflow-y-hidden transition-all duration-500 foldout" :class="{'!max-h-0': currentlyExpandedItem !== menuRefs[index]}">
+          <div class="overflow-y-hidden transition-all duration-500 foldout" :class="{'!max-h-0': currentlyExpandedItem === null, 'text-zinc-400': currentlyExpandedItem !== menuRefs[index]}">
             <a class="block hover:text-white hover:underline" v-for="child in item?.childItems?.nodes"
             :href="(item?.connectedNode?.node?.uri + '#' + (child?.connectedNode?.node as Page).slug)">{{child?.label}}</a>
           </div>
