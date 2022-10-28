@@ -23,33 +23,33 @@
           </svg>
         </button>
     <div class="h-0 md:hidden basis-full"></div>
-    <Transition>
-        <nav :class="{'!max-h-0': !mobileMenuIsActive, 'mt-4': mobileMenuIsActive}" ref="navElement" class="md:grid md:!max-h-fit grid-flow-row grid-rows-1 gap-4 ml-auto overflow-hidden text-lg md:grid-flow-col auto-cols-fr lg:gap-8 md:text-base lg:text-xl">
-          <div @mouseover="onHover(menuRefs[index])" ref="menuRefs" v-for="(item, index) in menuItems" :class="{'hover:border-kombugreen': !touchDevice}" class="flex flex-col leading-loose tracking-wide transition-all duration-300 border-t-2 border-russian-green/50 md:tracking-tighter lg:tracking-tight xl:tracking-normal" >
+      <!-- Container for main categories -->
+      <nav :class="{'!max-h-0 mobileMenuHidden': !showMenu, 'mobileMenuExpanded': showMenu}" ref="navElement" class="mobileMenu md:grid md:!max-h-fit grid-flow-row grid-rows-1 gap-4 ml-auto overflow-hidden text-lg md:grid-flow-col auto-cols-fr lg:gap-8 md:text-base lg:text-xl">
+        <div @mouseover="onHover(menuRefs[index])" ref="menuRefs" v-for="(item, index) in menuItems" :class="{'hover:border-kombugreen': !isTouchDevice}" class="flex flex-col leading-loose tracking-wide transition-all duration-300 border-t-2 border-russian-green/50 md:tracking-tighter lg:tracking-tight xl:tracking-normal" >
           <div class="flex items-center justify-between">
-            <a class="whitespace-nowrap hover:text-white hover:underline"
+            <a @click="onClickLink" class="whitespace-nowrap hover:text-white hover:underline"
               :class="{'font-extrabold': (item?.path == currentUrl)}"
               :href="item?.path + '#'">
               {{item?.label}}
             </a>
-            <button v-if="item?.childItems?.nodes?.length" @click="currentlyExpandedItem === menuRefs[index]? currentlyExpandedItem = null : currentlyExpandedItem = menuRefs[index]">
-              <svg class="w-6 h-6 transition-transform duration-300" :class="{'hidden': !touchDevice, 'block': touchDevice, 'rotate-180': currentlyExpandedItem === menuRefs[index]}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+            <button v-if="item?.childItems?.nodes?.length" @click="onClickExpand(index)">
+              <svg class="w-6 h-6 transition-transform duration-300" :class="{'hidden': !isTouchDevice, 'block': isTouchDevice, 'rotate-180': currentlyExpandedItem === menuRefs[index]}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
             </button>
           </div>
-          <div class="overflow-y-hidden transition-all duration-500 foldout" :class="{'md:!max-h-0': currentlyExpandedItem === null, 'text-zinc-400, !max-h-0': currentlyExpandedItem !== menuRefs[index]}">
-            <a class="block hover:text-white hover:underline" v-for="child in item?.childItems?.nodes"
+          <!-- Container for Submenu-->
+          <div class="overflow-y-hidden pl-2 md:pl-0 transition-all duration-500 foldout" :class="{'!max-h-0': isMobileScreen && currentlyExpandedItem !== menuRefs[index], 'md:!max-h-0': currentlyExpandedItem === null, 'text-zinc-400': currentlyExpandedItem !== menuRefs[index]}">
+            <a @click="onClickLink" class="block hover:text-white hover:underline" v-for="child in item?.childItems?.nodes"
             :href="(item?.connectedNode?.node?.uri + '#' + (child?.connectedNode?.node as Page).slug)">{{child?.label}}</a>
           </div>
         </div>
       </nav>
-    </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import type { getMenuItems } from '@src/ts/queries';
 import type { Page } from '@src/generated/graphql';
 import resolveConfig from 'tailwindcss/resolveConfig';
@@ -64,7 +64,8 @@ const navBar = ref<HTMLElement | null>(null);
 const navElement = ref<HTMLElement | null>(null);
 const menuRefs = ref<HTMLElement[]>([]);
 
-const touchDevice = ref<boolean>(true);
+const isTouchDevice = ref<boolean>(true);
+const isMobileScreen = ref<boolean>(true);
 
 const screens = tailwindOptions.theme?.screens as KeyValuePair<string, string>;
 
@@ -74,52 +75,86 @@ defineProps<{
 }>()
 
 onMounted(() => {
-  console.log(screens);
   if (!("ontouchstart" in document.documentElement)) {
-    touchDevice.value = false;
+    isTouchDevice.value = false;
   }
+  let tallestSubMenus = 0;
   menuRefs.value.forEach(ref => {
     const foldoutDiv: HTMLElement | null = ref.querySelector('.foldout');
     if(!foldoutDiv){
       return;
     }
-    foldoutDiv.style.maxHeight = foldoutDiv?.scrollHeight + 'px';
+    const scrollHeight = foldoutDiv.scrollHeight;
+    tallestSubMenus = scrollHeight > tallestSubMenus ? scrollHeight : tallestSubMenus;
+    foldoutDiv.style.maxHeight = scrollHeight + 'px';
   })
 
   if(navElement.value){
-    // navElement.value.style.maxHeight = navElement.value.scrollHeight + 'px';
-    navElement.value.style.maxHeight = '100vh';
+    navElement.value.style.maxHeight = navElement.value.scrollHeight + tallestSubMenus + 'px';
+    // navElement.value.style.maxHeight = '100vh';
   }
   const mediaQuery = window.matchMedia(`(min-width: ${screens['md']})`)
-  if(!mediaQuery.matches){
-    mobileMenuIsActive.value = false;
+  if(mediaQuery.matches){
+    isMobileScreen.value = false;
   }
 })
 
+const showMenu = computed(() => {
+  return !isMobileScreen.value || mobileMenuIsActive.value;
+})
+
+function collapseSubmenus() {
+  currentlyExpandedItem.value = null;
+}
+
+function closeMobileMenu() {
+  mobileMenuIsActive.value = false;
+}
+
 function onHover(target: HTMLElement) {
+  // console.log(`menu item was hovered_ ${target}`);
   const mediaQuery = window.matchMedia('(hover:none)');
-  if(mediaQuery.matches){
+  if(isTouchDevice.value || mediaQuery.matches){
+    // console.log(`ignoring hover because touchdevice`);
     return;
   }
   currentlyExpandedItem.value = target;
 }
 
+function onClickExpand(index: number){
+  console.log(`expand button nr ${index} clicked`);
+  const wasAlreadyExpanded = currentlyExpandedItem.value === menuRefs.value[index];
+  console.log(`was already expanded ${wasAlreadyExpanded}`);
+  if(!wasAlreadyExpanded){
+    currentlyExpandedItem.value = menuRefs.value[index];
+  } else {
+    currentlyExpandedItem.value = null
+  } 
+  console.log(`currentlyExpandedItem after click: ${currentlyExpandedItem.value}`);
+}
+
+function onClickLink(){
+  console.log(`clicked a link`);
+  if(!isMobileScreen){
+    collapseSubmenus();
+  }
+  closeMobileMenu();
+}
+
 </script>
 
 <style scoped>
-/* we will explain what these classes do next! */
-.v-enter-active{
-  
-  transition: all 0.2s ease, opacity 0.1s ease 0.2s;
-}
-.v-leave-active {
-  transition: all 0.4s ease 0.1s, opacity 0.1s ease;
+.mobileMenu {
+  transition: all 0.5s ease , opacity 0.3s ease;
 }
 
-.v-enter-from,
-.v-leave-to {
-  margin-top: 0;
-  max-height: 0 !important;
-  opacity: 0;
+.mobileMenuExpanded{
+  opacity: 1;
+  /* transition: all 0.2s ease, opacity 0.1s ease 0.2s; */
 }
+.mobileMenuHidden{
+  opacity: 0;
+  /* transition: all 0.4s ease 0.1s, opacity 0.1s ease; */
+}
+
 </style>
