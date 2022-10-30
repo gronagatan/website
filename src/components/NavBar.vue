@@ -1,10 +1,10 @@
 <template>
-  <div @mouseleave="currentlyExpandedItem = null" ref="navBar" class="flex flex-wrap justify-between w-full p-4 pr-2 shadow-xl md:pr-4 gap-x-6 text-baby-powder/90 text-glow-black bg-gradient-to-l from-kombugreen to-green-800/80 backdrop-blur-2xl">
+  <div @mouseleave="currentlyExpandedItem = null" ref="navBar" class="flex flex-wrap justify-between w-full  p-2 xs:p-4 shadow-xl gap-x-6 text-baby-powder/90 text-glow-black bg-gradient-to-l from-kombugreen to-green-800/80 backdrop-blur-2xl">
     <h2 class="text-2xl text-transparent font-patua bg-gradient-to-r fr bg-clip-text from-lichen to-baby-powder whitespace-nowrap lg:text-3xl xl:text-4xl">Brf Gröna Gatan</h2>
     
     
-        <button @click="mobileMenuIsActive = !mobileMenuIsActive" class="block rounded-md md:hidden">
-          <svg v-if="mobileMenuIsActive" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+        <button @click="mobileMenuToggled = !mobileMenuToggled" class="block rounded-md md:hidden">
+          <svg v-if="mobileMenuToggled" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -24,7 +24,7 @@
         </button>
     <div class="h-0 md:hidden basis-full"></div>
       <!-- Container for main categories -->
-      <nav :class="{'!max-h-0 mobileMenuHidden': !showMenu, 'mobileMenuExpanded': showMenu}" ref="navElement" class="mobileMenu md:grid md:!max-h-fit grid-flow-row grid-rows-1 gap-4 ml-auto overflow-hidden text-lg md:grid-flow-col auto-cols-fr lg:gap-8 md:text-base lg:text-xl">
+      <nav :class="{'!max-h-0 mobileMenuHidden': mobileMenuIsInactive, 'mobileMenuExpanded mt-4': mobileMenuIsActive}" ref="navElement" class="mobileMenu md:grid grid-flow-row grid-rows-1 gap-4 ml-auto overflow-hidden text-lg md:grid-flow-col auto-cols-fr lg:gap-8 md:text-base lg:text-xl">
         <div @mouseover="onHover(menuRefs[index])" ref="menuRefs" v-for="(item, index) in menuItems" :class="{'hover:border-kombugreen': !isTouchDevice}" class="flex flex-col leading-loose tracking-wide transition-all duration-300 border-t-2 border-russian-green/50 md:tracking-tighter lg:tracking-tight xl:tracking-normal" >
           <div class="flex items-center justify-between">
             <a @click="onClickLink" class="whitespace-nowrap hover:text-white hover:underline"
@@ -58,7 +58,7 @@ import type { KeyValuePair } from 'tailwindcss/types/config';
 
 const tailwindOptions = resolveConfig(tailwindConfig);
 
-const mobileMenuIsActive = ref<boolean>(false);
+const mobileMenuToggled = ref<boolean>(false);
 const currentlyExpandedItem = ref<HTMLElement | null>(null);
 const navBar = ref<HTMLElement | null>(null);
 const navElement = ref<HTMLElement | null>(null);
@@ -100,7 +100,15 @@ onMounted(() => {
 })
 
 const showMenu = computed(() => {
-  return !isMobileScreen.value || mobileMenuIsActive.value;
+  return !isMobileScreen.value || mobileMenuToggled.value;
+})
+
+const mobileMenuIsActive = computed(() => {
+  return isMobileScreen.value && mobileMenuToggled.value;
+})
+
+const mobileMenuIsInactive = computed(() => {
+  return isMobileScreen.value && !mobileMenuToggled.value;
 })
 
 function collapseSubmenus() {
@@ -108,7 +116,7 @@ function collapseSubmenus() {
 }
 
 function closeMobileMenu() {
-  mobileMenuIsActive.value = false;
+  mobileMenuToggled.value = false;
 }
 
 function onHover(target: HTMLElement) {
@@ -135,7 +143,7 @@ function onClickExpand(index: number){
 
 function onClickLink(){
   console.log(`clicked a link`);
-  if(!isMobileScreen){
+  if(isTouchDevice){
     collapseSubmenus();
   }
   closeMobileMenu();

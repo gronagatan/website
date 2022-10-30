@@ -9,6 +9,9 @@ module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
+      screens: {
+        xs: '320px'
+      },
       fontFamily: {
         patua: ['"Patua One"', 'serif'],
         // roboto: ['"Roboto Slab"', 'serif'],
@@ -41,6 +44,8 @@ module.exports = {
         }
       },
       gridTemplateColumns: {
+        'auto-fit-32': 'repeat(auto-fit, minmax(8rem, 1fr))',
+        'auto-fit-36': 'repeat(auto-fit, minmax(9rem, 1fr))',
         'auto-fit-40': 'repeat(auto-fit, minmax(10rem, 1fr))'
       }
     }

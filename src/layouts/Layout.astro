@@ -37,7 +37,7 @@ const currentUrl = Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
-  <html lang="en">
+  <html lang="en" class="scroll-pt-24 md:scroll-pt-28 scroll-smooth">
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width" />
@@ -45,19 +45,17 @@ const currentUrl = Astro.url.pathname;
       <meta name="generator" content={Astro.generator} />
       <title>{title}</title>
     </head>
-    <body class="">
-      <div class="sticky top-0 z-10">
-        <div class="">
-          <NavBar menuItems={menuResponse} currentUrl={currentUrl} client:idle>Fuck yeah</NavBar>
-        </div>
+    <body class="flex flex-col min-h-screen">
+      <div class="fixed top-0 left-0 right-0 z-10">
+        <NavBar menuItems={menuResponse} currentUrl={currentUrl} client:idle>Fuck yeah</NavBar>
         <!-- <div class="block md:hidden">
           <MobileMenu menuItems={menuResponse} currentUrl={currentUrl} client:idle/>
         </div> -->
       </div>
-      <div class="p-2 sm:p-6" >
+      <div class="mt-16 md:mt-20 p-2 sm:p-6" >
         <slot/>
       </div>
-      <Footer />
+      <Footer class="mt-auto" />
     </body>
   </html>
   <style>

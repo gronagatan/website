@@ -2,12 +2,17 @@
 import type { Page } from '@src/generated/graphql'
 import { getMenuItems } from '@ts/queries'
 
+export interface Props {
+  class: string,
+}
+const { class: className } = Astro.props as Props
+
 // const allPageSlugs = await getAllPageSlugs();
 const menuItems = await getMenuItems();
 ---
-<div class="p-4 border-t-emerald-100 bg-gray-50 border-t text-sm ">
+<div class={`p-4 border-t-emerald-100 bg-gray-50 border-t text-sm ${className}`}>
 
-  <div class="grid grid-cols-auto-fit-40 gap-y-6 gap-x-2 md:gap-x-6 leading-loose underline text-emerald-800">
+  <div class="grid grid-cols-auto-fit-32 gap-y-6 gap-x-2 md:gap-x-6 leading-loose underline text-emerald-800">
     {
       menuItems?.map((menuItem) => (
         <div class="border-l border-emerald-200 pl-2">
