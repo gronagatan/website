@@ -1,6 +1,6 @@
 <template>
   <div @mouseleave="currentlyExpandedItem = null" ref="navBar" class="flex flex-wrap justify-between w-full  p-2 xs:p-4 shadow-xl gap-x-6 text-baby-powder/90 text-glow-black bg-gradient-to-l from-kombugreen to-green-800/80 backdrop-blur-2xl">
-    <h2 class="text-2xl text-transparent font-patua bg-gradient-to-r fr bg-clip-text from-lichen to-baby-powder whitespace-nowrap lg:text-3xl xl:text-4xl">Brf Gröna Gatan</h2>
+    <h2 class="text-2xl text-transparent font-patua bg-gradient-to-r fr bg-clip-text from-lichen to-baby-powder whitespace-nowrap lg:text-3xl xl:text-4xl"><a href="/">Brf Gröna Gatan</a></h2>
     
     
         <button @click="mobileMenuToggled = !mobileMenuToggled" class="block rounded-md md:hidden">
@@ -29,7 +29,7 @@
           <div class="flex items-center justify-between">
             <a @click="onClickLink" class="grow whitespace-nowrap hover:text-white hover:underline"
               :class="{'font-extrabold': (item?.path == currentUrl)}"
-              :href="item?.path + '#'">
+              :href="`${item?.path}${item?.path == currentUrl?'#':''}`">
               {{item?.label}}
             </a>
             <button v-if="item?.childItems?.nodes?.length" @click="onClickExpand(index)" class="pl-2">
