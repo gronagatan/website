@@ -28,8 +28,8 @@
         <div @mouseover="onHover(menuRefs[index])" ref="menuRefs" v-for="(item, index) in menuItems" :class="{'hover:border-kombugreen': !isTouchDevice}" class="flex flex-col leading-loose tracking-wide transition-all duration-300 border-t-2 border-russian-green/50 md:tracking-tighter lg:tracking-tight xl:tracking-normal" >
           <div class="flex items-center justify-between">
             <a @click="onClickLink" class="grow whitespace-nowrap hover:text-white hover:underline"
-              :class="{'font-extrabold': (item?.path == currentUrl)}"
-              :href="`${item?.path}${item?.path == currentUrl?'#':''}`">
+              :class="{'font-extrabold': (item?.path === currentUrl)}"
+              :href="`${item?.path}${item?.path === currentUrl?'#':''}`">
               {{item?.label}}
             </a>
             <button v-if="item?.childItems?.nodes?.length" @click="onClickExpand(index)" class="pl-2">

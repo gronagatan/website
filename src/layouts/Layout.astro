@@ -1,7 +1,6 @@
 ---
 import '../styles/main.css'
 
-import MobileMenu from '@components/MobileMenu.vue'
 // import { Debug } from 'astro/components'
 import '@fontsource/patua-one'
 import '@fontsource/roboto-slab'
@@ -33,7 +32,10 @@ const menuResponse = await getMenuItems()
 //   return { url: menuItem?.connectedNode?.node?.uri, name: menuItem?.label }
 // })
 
-const currentUrl = Astro.url.pathname;
+let currentUrl = Astro.url.pathname
+if (!currentUrl.endsWith('/')) {
+  currentUrl += '/'
+}
 ---
 
 <!DOCTYPE html>
