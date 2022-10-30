@@ -27,12 +27,12 @@
       <nav :class="{'!max-h-0 mobileMenuHidden': mobileMenuIsInactive, 'mobileMenuExpanded mt-4': mobileMenuIsActive}" ref="navElement" class="mobileMenu md:grid grid-flow-row grid-rows-1 gap-4 ml-auto overflow-hidden text-lg md:grid-flow-col auto-cols-fr lg:gap-8 md:text-base lg:text-xl">
         <div @mouseover="onHover(menuRefs[index])" ref="menuRefs" v-for="(item, index) in menuItems" :class="{'hover:border-kombugreen': !isTouchDevice}" class="flex flex-col leading-loose tracking-wide transition-all duration-300 border-t-2 border-russian-green/50 md:tracking-tighter lg:tracking-tight xl:tracking-normal" >
           <div class="flex items-center justify-between">
-            <a @click="onClickLink" class="whitespace-nowrap hover:text-white hover:underline"
+            <a @click="onClickLink" class="grow whitespace-nowrap hover:text-white hover:underline"
               :class="{'font-extrabold': (item?.path == currentUrl)}"
               :href="item?.path + '#'">
               {{item?.label}}
             </a>
-            <button v-if="item?.childItems?.nodes?.length" @click="onClickExpand(index)">
+            <button v-if="item?.childItems?.nodes?.length" @click="onClickExpand(index)" class="pl-2">
               <svg class="w-6 h-6 transition-transform duration-300" :class="{'hidden': !isTouchDevice, 'block': isTouchDevice, 'rotate-180': currentlyExpandedItem === menuRefs[index]}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
