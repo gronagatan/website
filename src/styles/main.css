@@ -10,3 +10,18 @@
     text-shadow: 0px 0px 0.5rem hsla(0 0% 0% / 20%);
   }
 }
+
+
+
+.wp-block-file__button {
+  display: inline-block;
+  font-family: sans-serif;
+  text-decoration: none;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 0.25rem;
+  margin: 1rem;
+}
