@@ -43,8 +43,12 @@ const menuItems = await getMenuItems();
             {
               item.childItems.nodes.map((childMenuItem) => {
                 // const label: string = childMenuItem?.label
-                const childPage = childMenuItem?.connectedNode?.node as Page
-                return <a class="block" href={`${item?.connectedNode?.node?.uri}#${childPage.slug}`}>{childMenuItem?.label}</a>
+                if (childMenuItem?.connectedNode) {
+                  const childPage = childMenuItem?.connectedNode?.node as Page
+                  return <a class="block" href={`${item?.connectedNode?.node?.uri}#${childPage.slug}`}>{childMenuItem?.label}</a>
+                } else {
+                  return <a class="block" href={childMenuItem?.path}>{childMenuItem?.label}</a>
+                }
               })
             }
           </div>

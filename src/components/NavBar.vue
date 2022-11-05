@@ -40,8 +40,17 @@
           </div>
           <!-- Container for Submenu-->
           <div class="overflow-y-hidden pl-2 md:pl-0 transition-all duration-500 foldout" :class="{'!max-h-0': isMobileScreen && currentlyExpandedItem !== menuRefs[index], 'md:!max-h-0': currentlyExpandedItem === null, 'text-zinc-400': currentlyExpandedItem !== menuRefs[index]}">
-            <a @click="onClickLink" class="block hover:text-white hover:underline" v-for="child in item?.childItems?.nodes"
-            :href="(item?.connectedNode?.node?.uri + '#' + (child?.connectedNode?.node as Page).slug)">{{child?.label}}</a>
+            <template v-for="child in item?.childItems?.nodes">
+              
+              <a v-if="child?.connectedNode" @click="onClickLink" class="block hover:text-white hover:underline" 
+                :href="(item?.connectedNode?.node?.uri + '#' + (child.connectedNode.node as Page).slug)">
+                {{child?.label}}
+              </a>
+              <a v-else :href="(child as MenuItem).path??''">
+                {{child?.label}}
+              </a>
+
+            </template>
           </div>
         </div>
       </nav>
@@ -51,7 +60,7 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
 import type { getMenuItems } from '@src/ts/queries';
-import type { Page } from '@src/generated/graphql';
+import type { MenuItem, Page } from '@src/generated/graphql';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '../../tailwind.config.cjs';
 import type { KeyValuePair } from 'tailwindcss/types/config';

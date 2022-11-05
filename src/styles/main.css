@@ -25,3 +25,7 @@
   border-radius: 0.25rem;
   margin: 1rem;
 }
+
+.link-more {
+  display:none;
+}

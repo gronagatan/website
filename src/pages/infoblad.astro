@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { getMostRecentPosts } from '@ts/queries'
+
+import { formatRelative, format, parse } from 'date-fns'
+import { sv } from 'date-fns/locale'
+
+const posts = await getMostRecentPosts(50);
+---
+<Layout title="Grönagatan | Infobladet">
+  <main class="mx-auto prose prose-base md:prose-lg xl:prose-xl prose-headings:font-sans font-serif prose-figure:rounded-md prose-img:rounded-md">
+    {
+      posts.map(post => (
+        <h2 class="!mb-2">{post.title}</h2>
+        <h6 class="!mt-2 font-bold !text-gray-500">Publicerat: {formatRelative(parse(post.date, "yyyy-MM-dd'T'HH:mm:ss", new Date()), new Date(), { locale: sv })}</h6>
+        <article class="" set:html={post.content} />
+      ))
+    }
+  </main>
+</Layout>

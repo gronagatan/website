@@ -1,6 +1,6 @@
 import { fetchAPI } from './fetchApi'
 
-import type { RootQueryToPageConnection, RootQueryToMenuConnection, Page } from '@src/generated/graphql'
+import type { RootQueryToPageConnection, RootQueryToMenuConnection, RootQueryToPostConnection, Page, Post } from '@src/generated/graphql'
 
 export async function getMenuItems () {
   const query = `
@@ -23,6 +23,7 @@ export async function getMenuItems () {
               childItems {
                 nodes {
                   label
+                  path
                   connectedNode {
                     node {
                       ... on Page {
@@ -131,4 +132,21 @@ export async function getPageFromSlug (slug:string) {
   `
   const response = await fetchAPI<{page:Page}>(query)
   return response.page
+}
+
+export async function getMostRecentPosts (count: number) {
+  const query = `
+    {
+      posts(where: {orderby: {field: DATE, order: DESC}}, first: ${count}) {
+        nodes {
+          title
+          excerpt
+          content
+          date
+        }
+      }
+    }
+  `
+  const response = await fetchAPI<{posts: RootQueryToPostConnection}>(query)
+  return response.posts.nodes as Post[]
 }

@@ -1,12 +1,29 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { getPageFromSlug } from '@ts/queries'
+import { getPageFromSlug, getMostRecentPosts } from '@ts/queries'
+import { formatRelative, parse } from 'date-fns'
+import { sv } from 'date-fns/locale'
 
 const pageResponse = await getPageFromSlug('start')
+const posts = await getMostRecentPosts(1)
 ---
-  <Layout title="Welcome to Astro.">
+  <Layout title="Brf Gröna Gatan">
     <main class="mx-auto prose prose-base md:prose-lg xl:prose-xl prose-headings:font-sans font-serif prose-figure:rounded-md prose-img:rounded-md">
       <h2 class="!font-patua">Välkommen till <span class="bg-gradient-to-br from-emerald-500 to-emerald-900 bg-clip-text text-transparent">Brf Gröna Gatan 27-39</span></h2>
+      <h3>Senaste inlägget:</h3>
+      <div class="rounded-md bg-gray-100">
+        <div class="m-4">
+
+          {
+            posts.map(post => (
+              <h3 class="!mt-0 !mb-2">{post.title}</h3>
+              <h6 class="!mt-2 font-bold !text-gray-500">Publicerat: {formatRelative(parse(post.date, "yyyy-MM-dd'T'HH:mm:ss", new Date()), new Date(), { locale: sv })}</h6>
+              <article set:html={post.excerpt} />
+            ))
+          }
+          <a class="text-right" href="/infoblad">Gå till infoblads-sidan</a>
+        </div>
+      </div>
       <article set:html={pageResponse.content} />
     </main>
   </Layout>
