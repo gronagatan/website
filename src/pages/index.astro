@@ -6,24 +6,25 @@ import { sv } from 'date-fns/locale'
 
 const pageResponse = await getPageFromSlug('start')
 const posts = await getMostRecentPosts(1)
+const featurePost = posts[0];
 ---
   <Layout title="Brf Gröna Gatan">
     <main class="mx-auto prose prose-base md:prose-lg xl:prose-xl prose-headings:font-sans font-serif prose-figure:rounded-md prose-img:rounded-md">
       <h2 class="!font-patua">Välkommen till <span class="bg-gradient-to-br from-emerald-500 to-emerald-900 bg-clip-text text-transparent">Brf Gröna Gatan 27-39</span></h2>
-      <h3>Senaste inlägget:</h3>
-      <div class="rounded-md bg-gray-100">
-        <div class="m-4">
-
-          {
-            posts.map(post => (
-              <h3 class="!mt-0 !mb-2">{post.title}</h3>
-              <h6 class="!mt-2 font-bold !text-gray-500">Publicerat: {formatRelative(parse(post.date, "yyyy-MM-dd'T'HH:mm:ss", new Date()), new Date(), { locale: sv })}</h6>
-              <article set:html={post.excerpt} />
-            ))
-          }
-          <a class="text-right" href="/infoblad">Gå till infoblads-sidan</a>
+      <div class="not-prose my-4 md:ml-4 p-4 rounded-md bg-gray-100 md:float-right md:w-1/2">
+        <div class="font-sans text-base flex flex-wrap gap-x-4 justify-between border-b">
+          <h5 class="italic font-bold text-kombugreen/70">Utdrag från senaste infobladet</h5>
+          <h6 class="!text-gray-600 font-bold">Publicerat: {formatRelative(parse(featurePost.date, "yyyy-MM-dd'T'HH:mm:ss", new Date()), new Date(), { locale: sv })}</h6>
         </div>
+        <h3 class="text-2xl font-bold mt-4 mb-0">{featurePost.title}</h3>
+        <article class="" set:html={featurePost.excerpt} />
+        <p class="font-sans text-right !mb-0">
+          <a class="underline text-lg text-kombugreen" href="/infoblad">Läs mer<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 w-6 h-6 inline-block">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          </a>
+        </p>
       </div>
-      <article set:html={pageResponse.content} />
+      <article class="" set:html={pageResponse.content} />
     </main>
   </Layout>
