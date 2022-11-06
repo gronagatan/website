@@ -2,8 +2,9 @@
 import Layout from '../layouts/Layout.astro'
 import { getMostRecentPosts } from '@ts/queries'
 
-import { formatRelative, format, parse } from 'date-fns'
-import { sv } from 'date-fns/locale'
+import { formatRelative, parse } from 'date-fns'
+// import { sv } from 'date-fns/locale/index.js'
+import sv from 'date-fns/locale/sv/index.js'
 
 const posts = await getMostRecentPosts(50);
 ---

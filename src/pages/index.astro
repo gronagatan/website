@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import { getPageFromSlug, getMostRecentPosts } from '@ts/queries'
 import { formatRelative, parse } from 'date-fns'
-import { sv } from 'date-fns/locale'
+import sv from 'date-fns/locale/sv/index.js'
 
 const pageResponse = await getPageFromSlug('start')
 const posts = await getMostRecentPosts(1)
