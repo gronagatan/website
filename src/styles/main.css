@@ -29,3 +29,7 @@
 .link-more {
   display:none;
 }
+
+.no-margin-first-child > :first-child {
+  margin-top: 0 !important;
+}

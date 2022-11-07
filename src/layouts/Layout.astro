@@ -33,8 +33,9 @@ const menuResponse = await getMenuItems()
 // })
 
 let currentUrl = Astro.url.pathname
-if (!currentUrl.endsWith('/')) {
-  currentUrl += '/'
+if (currentUrl.length > 1 && currentUrl.endsWith('/')) {
+  // currentUrl += '/'
+  currentUrl = currentUrl.slice(0, -1)
 }
 ---
 

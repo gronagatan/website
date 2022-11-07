@@ -17,7 +17,7 @@ const posts = await getMostRecentPosts(50);
             <h2 class="!mt-0">{post.title}</h2>
             <h6 class="!mt-0 font-bold prose prose-sm !text-gray-500">Publicerat: {formatRelative(parse(post.date, "yyyy-MM-dd'T'HH:mm:ss", new Date()), new Date(), { locale: sv })}</h6>
           </div>
-          <article class="article" set:html={post.content} />
+          <article class="no-margin-first-child" set:html={post.content} />
         </section>
       ))
     }
@@ -27,6 +27,6 @@ const posts = await getMostRecentPosts(50);
 <style is:global >
   .article > :first-child {
     margin-top: 0 !important;
-    /* background-color: blueviolet; */
+    background-color: blueviolet;
   }
 </style>

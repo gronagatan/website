@@ -28,8 +28,8 @@
         <div @mouseover="onHover(menuRefs[index])" ref="menuRefs" v-for="(item, index) in menuItems" :class="{'hover:border-kombugreen': !isTouchDevice}" class="flex flex-col leading-loose tracking-wide transition-all duration-300 border-t-2 border-russian-green/50 md:tracking-tighter lg:tracking-tight xl:tracking-normal" >
           <div class="flex items-center justify-between">
             <a @click="onClickLink" class="grow whitespace-nowrap hover:text-white hover:underline"
-              :class="{'font-extrabold': (item?.path === currentUrl)}"
-              :href="`${item?.path}${item?.path === currentUrl?'#':''}`">
+              :class="{'font-extrabold': (trimEndingSlash(item?.path) === currentUrl)}"
+              :href="`${trimEndingSlash(item?.path)}${trimEndingSlash(item?.path) === currentUrl?'#':''}`">
               {{item?.label}}
             </a>
             <button v-if="item?.childItems?.nodes?.length" @click="onClickExpand(index)" class="pl-2">
@@ -43,10 +43,10 @@
             <template v-for="child in item?.childItems?.nodes">
               
               <a v-if="child?.connectedNode" @click="onClickLink" class="block hover:text-white hover:underline" 
-                :href="(item?.connectedNode?.node?.uri + '#' + (child.connectedNode.node as Page).slug)">
+                :href="(trimEndingSlash(item?.connectedNode?.node?.uri) + '#' + (child.connectedNode.node as Page).slug)">
                 {{child?.label}}
               </a>
-              <a v-else :href="(child as MenuItem).path??''">
+              <a v-else :href="trimEndingSlash((child as MenuItem).path??'')" @click="onClickLink" class="block hover:text-white hover:underline">
                 {{child?.label}}
               </a>
 
@@ -156,6 +156,14 @@ function onClickLink(){
     collapseSubmenus();
   }
   closeMobileMenu();
+}
+
+function trimEndingSlash(text: string) {
+  // console.log("🚀 ~ file: NavBar.vue ~ line 162 ~ trimEndingSlash ~ text", text)
+  if(text.length > 1 && text.endsWith("/")){
+    return text.slice(0, -1);
+  }
+  return text;
 }
 
 </script>
