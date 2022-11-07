@@ -69,12 +69,14 @@ if (currentUrl.length > 1 && currentUrl.endsWith('/')) {
 // window.scrollTo(0, 1000)
 if (location.hash) {
   // const anchor = location.hash.slice(1)
-  // console.log(anchor)
+  console.log(location.hash)
   const element = document.querySelector(location.hash)
   // console.log('🚀 ~ file: Layout.astro ~ line 74 ~ element', element)
   if (element) {
-    console.log('scrolling to:', element)
-    element.scrollIntoView()
+    setTimeout(() => {
+      console.log('scrolling to:', element)
+      element.scrollIntoView()
+    }, 100)
   }
 }
 </script>
