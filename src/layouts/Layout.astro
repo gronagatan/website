@@ -73,6 +73,7 @@ if (location.hash) {
   const element = document.querySelector(location.hash)
   // console.log('🚀 ~ file: Layout.astro ~ line 74 ~ element', element)
   if (element) {
+    console.log('scrolling to:', element)
     element.scrollIntoView()
   }
 }
