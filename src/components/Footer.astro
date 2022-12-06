@@ -1,14 +1,16 @@
 ---
 import type { Page } from '@src/generated/graphql'
-import { getMenuItems } from '@ts/queries'
+import type { getMenuItems } from '@ts/queries'
 
-export interface Props {
-  class: string,
+interface Props {
+  class: string;
+  menuItems: Awaited<ReturnType<typeof getMenuItems>>;
 }
-const { class: className } = Astro.props as Props
+
+const { class: className, menuItems } = Astro.props as Props
 
 // const allPageSlugs = await getAllPageSlugs();
-const menuItems = await getMenuItems();
+// const menuItems = await getMenuItems();
 ---
 <div class={`p-4 border-t-emerald-100 bg-gray-50 border-t text-sm ${className}`}>
 
@@ -16,7 +18,7 @@ const menuItems = await getMenuItems();
     {
       menuItems?.map((menuItem) => (
         <div class="border-l border-emerald-200 pl-2">
-          <a class=" block font-bold" href={`${menuItem?.connectedNode?.node?.uri}#`}>{menuItem?.label}</a>
+          <a class=" block font-bold" href={`${menuItem?.path}#`}>{menuItem?.label}</a>
           {menuItem?.childItems?.nodes &&
           menuItem.childItems.nodes.map((childMenuItem) => {
             // const label: string = childMenuItem?.label

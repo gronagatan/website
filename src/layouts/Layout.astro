@@ -58,7 +58,7 @@ if (currentUrl.length > 1 && currentUrl.endsWith('/')) {
       <div class="mt-16 md:mt-20 p-2 pt-4 sm:p-6" >
         <slot/>
       </div>
-      <Footer class="mt-auto" />
+      <Footer menuItems={menuResponse} class="mt-auto" />
     </body>
   </html>
   <style>
