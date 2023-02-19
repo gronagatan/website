@@ -15,7 +15,7 @@ const posts = await getMostRecentPosts(50);
         <section class="bg-gray-50 border-gray-100 border rounded-md p-4 mb-8 prose prose-base md:prose-lg xl:prose-xl prose-headings:font-sans font-serif prose-figure:rounded-md prose-img:rounded-md">
           <div class="flex flex-wrap-reverse gap-x-4 justify-between">
             <h2 class="!mt-0">{post.title}</h2>
-            <h6 class="!mt-0 font-bold prose prose-sm !text-gray-500">Publicerat: {formatRelative(parse(post.date, "yyyy-MM-dd'T'HH:mm:ss", new Date()), new Date(), { locale: sv })}</h6>
+            <h6 class="!mt-0 font-bold prose prose-sm !text-gray-500">Publicerat: <span class="date-text" data-date={post.date}>{post.date}</span></h6>
           </div>
           <article class="no-margin-first-child" set:html={post.content} />
         </section>
