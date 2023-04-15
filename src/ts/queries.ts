@@ -20,7 +20,7 @@ export async function getMenuItems () {
                   }
                 }
               }
-              childItems {
+              childItems(first: 50) {
                 nodes {
                   label
                   path
@@ -56,7 +56,7 @@ export async function getAllPageSlugs () {
           id
           title
           uri
-          children(where: {orderby: {field: MENU_ORDER, order: ASC}}) {
+          children(where: {orderby: {field: MENU_ORDER, order: ASC}}, first: 50) {
             nodes {
               uri
               ... on Page {
