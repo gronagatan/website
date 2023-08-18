@@ -88,7 +88,7 @@ export async function getPageFromId (id:string) {
         slug
         uri
         content
-        children(where:{orderby:{field: MENU_ORDER, order: ASC}}) {
+        children(where:{orderby:{field: MENU_ORDER, order: ASC}}, first: 50) {
           nodes {
             ... on Page {
               id
@@ -116,7 +116,7 @@ export async function getPageFromSlug (slug:string) {
         slug
         uri
         content
-        children(where:{orderby:{field: MENU_ORDER, order: ASC}}) {
+        children(where:{orderby:{field: MENU_ORDER, order: ASC}}, first: 50) {
           nodes {
             ... on Page {
               id
