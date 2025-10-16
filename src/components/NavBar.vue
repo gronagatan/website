@@ -27,10 +27,10 @@
       <nav :class="{'!max-h-0 mobileMenuHidden': mobileMenuIsInactive, 'mobileMenuExpanded mt-4': mobileMenuIsActive}" ref="navElement" class="mobileMenu md:grid grid-flow-row grid-rows-1 gap-4 ml-auto overflow-hidden text-lg md:grid-flow-col auto-cols-fr lg:gap-8 md:text-base lg:text-xl">
         <div @mouseover="onHover(menuRefs[index])" ref="menuRefs" v-for="(item, index) in menuItems" :class="{'hover:border-kombugreen': !isTouchDevice}" class="flex flex-col leading-loose tracking-wide transition-all duration-300 border-t-2 border-russian-green/50 md:tracking-tighter lg:tracking-tight xl:tracking-normal" >
           <div class="flex items-center justify-between">
-            <a @click="onClickLink" class="grow whitespace-nowrap hover:text-white hover:underline"
-              :class="{'font-extrabold': (trimEndingSlash(item?.path) === currentUrl)}"
-              :href="`${trimEndingSlash(item?.path)}${trimEndingSlash(item?.path) === currentUrl?'#':''}`">
-              {{item?.label}}
+          <a v-if="item.path" @click="onClickLink" class="grow whitespace-nowrap hover:text-white hover:underline"
+            :class="{ 'font-extrabold': (trimEndingSlash(item.path) === currentUrl) }"
+            :href="`${trimEndingSlash(item.path)}${trimEndingSlash(item.path) === currentUrl ? '#' : ''}`">
+            {{ item.label }}
             </a>
             <button v-if="item?.childItems?.nodes?.length" @click="onClickExpand(index)" class="pl-2">
               <svg class="w-6 h-6 transition-transform duration-300" :class="{'hidden': !isTouchDevice, 'block': isTouchDevice, 'rotate-180': currentlyExpandedItem === menuRefs[index]}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
@@ -42,12 +42,14 @@
           <div class="overflow-y-hidden pl-2 md:pl-0 transition-all duration-500 foldout" :class="{'!max-h-0': isMobileScreen && currentlyExpandedItem !== menuRefs[index], 'md:!max-h-0': currentlyExpandedItem === null, 'text-zinc-400': currentlyExpandedItem !== menuRefs[index]}">
             <template v-for="child in item?.childItems?.nodes">
               
-              <a v-if="child?.connectedNode" @click="onClickLink" class="block hover:text-white hover:underline" 
-                :href="(trimEndingSlash(item?.connectedNode?.node?.uri) + '#' + (child.connectedNode.node as Page).slug)">
-                {{child?.label}}
+            <a v-if="child?.connectedNode && item.path !== '/'" @click="onClickLink"
+              class="block hover:text-white hover:underline"
+              :href="(trimEndingSlash(item.path) + '#' + (child.connectedNode.node as Page).slug)">
+              {{ child.label }}
               </a>
-              <a v-else :href="trimEndingSlash((child as MenuItem).path??'')" @click="onClickLink" class="block hover:text-white hover:underline">
-                {{child?.label}}
+            <a v-else :href="trimEndingSlash((child as MenuItem).path ?? '')" @click="onClickLink"
+              class="block hover:text-white hover:underline">
+              {{ child.label }}
               </a>
 
             </template>

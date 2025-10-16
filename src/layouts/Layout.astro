@@ -27,6 +27,8 @@ export interface Props {
 const { title } = Astro.props as Props
 // const menuResponse = await getAllPageSlugs();
 const menuResponse = await getMenuItems()
+// console.dir(menuResponse, { depth: null });
+// menuResponse[0].childItems?.nodes[0].path
 // const menuItems = menuResponse?.map((menuItem) => {
 //   // console.log(page);
 //   return { url: menuItem?.connectedNode?.node?.uri, name: menuItem?.label }
